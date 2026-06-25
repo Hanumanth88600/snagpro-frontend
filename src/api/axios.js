@@ -1,33 +1,28 @@
 import axios from "axios";
 
+const API_URL =
+  import.meta.env.VITE_API_URL ||
+  "https://snagpro-backend.onrender.com/api";
+
 const api = axios.create({
-
-  baseURL:
-    "https://snagpro-backend.onrender.com/api",
-
+  baseURL: API_URL,
 });
 
-api.interceptors.request.use(
+api.interceptors.request.use((config) => {
 
-  (config) => {
+  const token =
+    localStorage.getItem("token");
 
-    const token =
-      localStorage.getItem(
-        "token"
-      );
+  if (token) {
 
-    if (token) {
-
-      config.headers.Authorization =
-        `Bearer ${token}`;
-
-    }
-
-    return config;
+    config.headers.Authorization =
+      `Bearer ${token}`;
 
   }
 
-);
+  return config;
+
+});
 
 api.interceptors.response.use(
 
@@ -40,9 +35,7 @@ api.interceptors.response.use(
 
     if (
 
-      error.response?.status === 401
-
-      &&
+      error.response?.status === 401 &&
 
       !originalRequest._retry
 
@@ -57,13 +50,23 @@ api.interceptors.response.use(
             "refresh"
           );
 
+        if (!refresh) {
+
+          localStorage.clear();
+
+          window.location.href = "/";
+
+          return;
+
+        }
+
         const res =
           await axios.post(
 
-            "http://127.0.0.1:8000/api/accounts/token/refresh/",
+            `${API_URL}/accounts/token/refresh/`,
 
             {
-              refresh
+              refresh,
             }
 
           );
@@ -79,26 +82,21 @@ api.interceptors.response.use(
         originalRequest.headers.Authorization =
           `Bearer ${res.data.access}`;
 
-        return api(
-          originalRequest
-        );
+        return api(originalRequest);
 
       }
 
-      catch {
+      catch (err) {
 
         localStorage.clear();
 
-        window.location.href =
-          "/";
+        window.location.href = "/";
 
       }
 
     }
 
-    return Promise.reject(
-      error
-    );
+    return Promise.reject(error);
 
   }
 
