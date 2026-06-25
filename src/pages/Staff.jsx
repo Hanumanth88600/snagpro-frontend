@@ -278,211 +278,197 @@ export default function Staff() {
         >
 
           <table
-            className="
-          w-full
-          "
-          >
-
-            <tr
-              className="
-  border-b
-  border-white/10
-  "
-            >
-
-              <th className="p-4 text-left">
-                Name
-              </th>
-
-              <th className="p-4 text-left">
-                Email
-              </th>
-
-              <th className="p-4 text-left">
-                Role
-              </th>
-
-              <th className="p-4 text-left">
-                Phone
-              </th>
-
-              <th className="p-4 text-left">
-                Username
-              </th>
-
-              <th className="p-4 text-left">
-                Password
-              </th>
-
-              <th className="p-4 text-left">
-                Actions
-              </th>
-
-            </tr>
-
-            <tbody>
-
-              {loading ? (
-
-                <tr>
-
-                  <td
-                    colSpan="5"
-                    className="
-                  p-8
-                  text-center
-                  text-white/60
-                  "
-                  >
-                    Loading Staff...
-                  </td>
-
-                </tr>
-
-              ) : staff.length === 0 ? (
-
-                <tr>
-
-                  <td
-                    colSpan="5"
-                    className="
-                  p-8
-                  text-center
-                  text-white/60
-                  "
-                  >
-                    No Staff Found
-                  </td>
-
-                </tr>
-
-              ) : (
-
-                staff.map((user) => (
-
-                  <tr
-  key={user.id}
   className="
-  border-b
-  border-white/5
-  hover:bg-white/5
-  transition
+  w-full
   "
 >
 
-  <td className="p-4">
-    {user.name}
-  </td>
+  <thead>
 
-  <td className="p-4">
-    {user.email}
-  </td>
-
-  <td className="p-4">
-
-    <span
+    <tr
       className="
-      px-3
-      py-1
-
-      rounded-full
-
-      bg-cyan-500/20
-
-      text-cyan-300
-
-      text-sm
-      "
-    >
-      {user.role}
-    </span>
-
-  </td>
-
-  <td className="p-4">
-    {user.phone}
-  </td>
-
-  <td className="p-4">
-    {user.username}
-  </td>
-
-  <td className="p-4">
-    {user.password}
-  </td>
-
-  <td className="p-4">
-
-    <div
-      className="
-      flex
-      gap-2
+      border-b
+      border-white/10
       "
     >
 
-      <button
+      <th className="p-4 text-left">
+        Name
+      </th>
 
-        onClick={() => {
+      <th className="p-4 text-left">
+        Email
+      </th>
 
-          setSelectedUser(
-            user
-          );
+      <th className="p-4 text-left">
+        Role
+      </th>
 
-          setEditModal(
-            true
-          );
+      <th className="p-4 text-left">
+        Phone
+      </th>
 
-        }}
+      <th className="p-4 text-left">
+        Username
+      </th>
 
-        className="
-        px-3
-        py-1
+      <th className="p-4 text-left">
+        Password
+      </th>
 
-        rounded-lg
+      <th className="p-4 text-left">
+        Actions
+      </th>
 
-        bg-yellow-500/20
+    </tr>
 
-        text-yellow-300
-        "
-      >
-        ✏ Edit
-      </button>
+  </thead>
 
-      <button
+  <tbody>
 
-        onClick={() =>
-          handleDelete(
-            user.id
-          )
-        }
+    {loading ? (
 
-        className="
-        px-3
-        py-1
+      <tr>
 
-        rounded-lg
+        <td
+          colSpan={7}
+          className="
+          p-8
+          text-center
+          text-white/60
+          "
+        >
+          Loading Staff...
+        </td>
 
-        bg-red-500/20
+      </tr>
 
-        text-red-300
-        "
-      >
-        🗑 Delete
-      </button>
+    ) : staff.length === 0 ? (
 
-    </div>
+      <tr>
 
-  </td>
+        <td
+          colSpan={7}
+          className="
+          p-8
+          text-center
+          text-white/60
+          "
+        >
+          No Staff Found
+        </td>
 
-</tr>
+      </tr>
 
-                ))
+    ) : (
 
-              )}
+      staff.map((user) => (
 
-            </tbody>
+        <tr
+          key={user.id}
+          className="
+          border-b
+          border-white/5
+          hover:bg-white/5
+          transition
+          "
+        >
 
-          </table>
+          <td className="p-4">
+            {user.name}
+          </td>
+
+          <td className="p-4">
+            {user.email}
+          </td>
+
+          <td className="p-4">
+
+            <span
+              className="
+              px-3
+              py-1
+              rounded-full
+              bg-cyan-500/20
+              text-cyan-300
+              text-sm
+              "
+            >
+              {user.role}
+            </span>
+
+          </td>
+
+          <td className="p-4">
+            {user.phone}
+          </td>
+
+          <td className="p-4">
+            {user.username}
+          </td>
+
+          <td className="p-4">
+            {user.password}
+          </td>
+
+          <td className="p-4">
+
+            <div
+              className="
+              flex
+              gap-2
+              "
+            >
+
+              <button
+                onClick={() => {
+
+                  setSelectedUser(user);
+
+                  setEditModal(true);
+
+                }}
+                className="
+                px-3
+                py-1
+                rounded-lg
+                bg-yellow-500/20
+                text-yellow-300
+                cursor-pointer
+                "
+              >
+                ✏ Edit
+              </button>
+
+              <button
+                onClick={() =>
+                  handleDelete(user.id)
+                }
+                className="
+                px-3
+                py-1
+                rounded-lg
+                bg-red-500/20
+                text-red-300
+                cursor-pointer
+                "
+              >
+                🗑 Delete
+              </button>
+
+            </div>
+
+          </td>
+
+        </tr>
+
+      ))
+
+    )}
+
+  </tbody>
+
+</table>
 
         </div>
 

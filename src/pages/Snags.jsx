@@ -405,27 +405,23 @@ return (
     "
   >
 
-    {snag.images.map(
-      (img) => (
+   {snag.images.map((img) => (
 
-        <img
-          key={img.id}
-          src={
-            `http://127.0.0.1:8000${img.image}`
-          }
-          alt=""
-          className="
-          h-32
-          w-full
-          object-cover
-          rounded-xl
-          border
-          border-white/10
-          "
-        />
+  <img
+    key={img.id}
+    src={img.image}
+    alt={snag.title}
+    className="
+    h-32
+    w-full
+    object-cover
+    rounded-xl
+    border
+    border-white/10
+    "
+  />
 
-      )
-    )}
+))}
 
   </div>
 
