@@ -96,81 +96,54 @@ The application enables construction companies to efficiently manage inspections
 
 ```mermaid
 graph LR
+    A[React Frontend] --> B[Axios]
+    B --> C[Django REST API]
+    C --> D[JWT Authentication]
+    C --> E[PostgreSQL Database]
+    C --> F[Media Upload]
+    Landing --> G[EmailJS Contact Form]
+```
 
-A[React Frontend]
---> B[Axios]
+---
 
-B --> C[Django REST API]
+# 🔐 Authentication Flow
 
-C --> D[JWT Authentication]
-
-C --> E[PostgreSQL Database]
-
-C --> F[Media Upload]
-
-Landing --> G[EmailJS Contact Form]
-🔐 Authentication Flow
+```mermaid
 flowchart TD
+    Login --> UsernamePassword
+    UsernamePassword --> DjangoAPI
+    DjangoAPI --> JWT
+    JWT --> LocalStorage
+    LocalStorage --> Dashboard
+    Dashboard --> ProtectedAPIs
+```
 
-Login
+---
 
---> UsernamePassword
+# 📋 Application Workflow
 
-UsernamePassword
-
---> DjangoAPI
-
-DjangoAPI
-
---> JWT
-
-JWT
-
---> LocalStorage
-
-LocalStorage
-
---> Dashboard
-
-Dashboard
-
---> ProtectedAPIs
-📋 Application Workflow
+```mermaid
 flowchart LR
+    CompanyAdmin --> CreateProjects
+    CreateProjects --> CreateInspection
+    CreateInspection --> CreateSnags
+    CreateSnags --> AssignContractor
+    AssignContractor --> ResolveSnag
+    ResolveSnag --> ClientReview
+```
 
-CompanyAdmin
+---
 
---> CreateProjects
+# 🗄 Database Structure
 
-CreateProjects
-
---> CreateInspection
-
-CreateInspection
-
---> CreateSnags
-
-CreateSnags
-
---> AssignContractor
-
-AssignContractor
-
---> ResolveSnag
-
-ResolveSnag
-
---> ClientReview
-🗄 Database Structure
+```mermaid
 erDiagram
+    COMPANY ||--o{ USER : has
+    COMPANY ||--o{ PROJECT : owns
+    PROJECT ||--o{ INSPECTION : contains
+    INSPECTION ||--o{ SNAG : has
+```
 
-COMPANY ||--o{ USER : has
-
-COMPANY ||--o{ PROJECT : owns
-
-PROJECT ||--o{ INSPECTION : contains
-
-INSPECTION ||--o{ SNAG : has
 🚀 Tech Stack
 Frontend
 React.js
